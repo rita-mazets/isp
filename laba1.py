@@ -1,30 +1,33 @@
+#!/usr/bin/env python3
+
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
 def fibonacci(number):
-    fib1 = fib2 = 1
-    for i in range(number):
-        yield fib1
-        fib1, fib2 = fib2, fib1 + fib2
+    num1 = num2 = 1
+    for _ in range(number):
+        yield num1
+        num1, num2 = num2, num1 + num2
 
 
 def main():
-    is_correct = False
-    while is_correct is False:
+    while True:
         try:
-            number = int(input("Введите количество чисел для ряда Фибоначчи:"))
+            count = int(input("Введите количество чисел для ряда Фибоначчи:"))
         except ValueError:
             logging.info("Преобразование прошло неудачно")
-            continue
-        if number < 1:
+            break
+
+        if count < 1:
             logging.info("Введите положительное число!")
         else:
-            is_correct = True
-            data = list(fibonacci(number))
-            print(data)
+            logging.info(list(fibonacci(count)))
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        logging.info("Упс, пора прощаться:(")
